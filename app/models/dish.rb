@@ -7,5 +7,5 @@ class Dish < ApplicationRecord
   validates :restaurant, presence: true
 
   # Can only have one of any particular tag
-  validates :tag, uniqueness: true
+  # validates :tag, uniqueness: true
 end
