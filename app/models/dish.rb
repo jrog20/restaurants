@@ -8,4 +8,15 @@ class Dish < ApplicationRecord
 
   # Can only have one of any particular tag
   # validates :tag, uniqueness: true
+
+  # Dish.names - all the names of dishes
+  scope :names, -> { pluck(:name) }
+  # Dish.max_tags - single dish with the most tags
+  scope :max_tags, -> { joins(:dish_tags).group(:dish_id).order("COUNT(dish_id) DESC").take }
+  # Dish.untagged - dishes with no tags
+  scope :tagged, -> { joins(:tags) }
+  scope :untagged, -> { where.not(id: tagged) }
+  # Dish.average_tag_count - average tag count for dishes
+  scope :average_tag_count, -> { average(:tag_count) }
+
 end
